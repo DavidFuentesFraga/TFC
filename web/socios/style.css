@@ -1,0 +1,216 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #0f0f0f;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin:0;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background: #111;
+    margin-bottom: 40px;
+}
+
+nav h1 {
+    color: #00ff88;
+}
+
+nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+/*  MAIN  */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+/* Contenedor de las tarjetas */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    max-width: 1100px;
+    width: 100%;
+}
+
+/* TARJETA  */
+.vip-card {
+    background: #111;                  
+    border: 1px solid rgba(255, 255, 255, 0.055);
+    padding: 28px 20px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* Línea superior de color */
+.vip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+}
+
+/* Colores de la línea superior para cada rango */
+.vip-card.bronce::before { background: #cf5e01; }
+.vip-card.plata::before  { background: #d6d1d1; }
+.vip-card.oro::before    { background: #ffc400; }
+
+/* Hover: sube la tarjeta y cambia el borde */
+.vip-card:hover {
+    transform: translateY(-5px);
+}
+.vip-card.bronce:hover { border-color: rgba(207, 94, 1, 0.4); }
+.vip-card.plata:hover  { border-color: rgba(214, 209, 209, 0.4); }
+.vip-card.oro:hover    { border-color: rgba(255, 196, 0, 0.4); }
+
+/*  GLOW */
+.vip-glow {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+.vip-card:hover .vip-glow { opacity: 1; }
+
+/* Ajuste fino de los colores del glow para cada tarjeta */
+.bronce .vip-glow {
+    background: radial-gradient(ellipse at 50% 0%, rgba(207, 94, 1, 0.15), transparent 70%);
+}
+.plata .vip-glow {
+    background: radial-gradient(ellipse at 50% 0%, rgba(214, 209, 209, 0.12), transparent 70%);
+}
+.oro .vip-glow {
+    background: radial-gradient(ellipse at 50% 0%, rgba(255, 196, 0, 0.12), transparent 70%);
+}
+
+/*  NOMBRE DEL RANGO  */
+.vip-name {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+    position: relative;
+    z-index: 1;
+}
+.bronce .vip-name { color: #cf5e01; }
+.plata .vip-name  { color: #d6d1d1; }
+.oro .vip-name    { color: #ffc400; }
+
+/* PRECIO  */
+.vip-price {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #c8dae8;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* LISTA DE BENEFICIOS  */
+.benefit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+.benefit {
+    font-size: 0.78rem;
+    color: #8090a8;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    line-height: 1.4;
+}
+
+/* El puntito de color antes de cada beneficio */
+.benefit-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+.bronce .benefit-dot { background: #cf5e01; }
+.plata .benefit-dot  { background: #d6d1d1; }
+.oro .benefit-dot    { background: #ffc400; }
+
+/*  BOTÓN "OBTENER EN TIENDA" */
+.vip-cta {
+    display: block;
+    margin-top: auto;
+    padding: 10px 16px;
+    border-radius: 2px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Colores del botón para cada rango */
+.bronce .vip-cta {
+    background: rgba(207, 94, 1, 0.12);
+    color: #cf5e01;
+    border: 1px solid rgba(207, 94, 1, 0.28);
+}
+.plata .vip-cta {
+    background: rgba(214, 209, 209, 0.10);
+    color: #d6d1d1;
+    border: 1px solid rgba(214, 209, 209, 0.28);
+}
+.oro .vip-cta {
+    background: rgba(255, 196, 0, 0.10);
+    color: #ffc400;
+    border: 1px solid rgba(255, 196, 0, 0.28);
+}
+
+/* Hover del botón */
+.bronce .vip-cta:hover { background: rgba(207, 94, 1, 0.25); }
+.plata .vip-cta:hover  { background: rgba(214, 209, 209, 0.20); }
+.oro .vip-cta:hover    { background: rgba(255, 196, 0, 0.22); }
+
+
+/* FOOTER */
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #111;
+    color:white;
+}
+
+/* :#c8dae8 */

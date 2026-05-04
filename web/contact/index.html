@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1>Club de Billar Ordes</h1>
+        <div>
+            <a href="/web/landingPage/index.html">Inicio</a>
+            <a href="#">Tienda</a>
+            <a href="/web/socios/index.html">Socios</a>
+            <a href="/web/contact/index.html">Contacto</a>
+        </div>
+    </nav>
+    <main>
+        <form class="form-contact">
+            <div class="form-contact-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-contact-group">
+                <label for=apellido>Apellido/s</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+            <div class="form-contact-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-contact-group">
+                <label for="motivo">Motivo</label>
+                <select id="motivo" name="motivo" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="info">Información general</option>
+                    <option value="socios">Hacerme socio</option>
+                    <option value="clases">Clases y cursos</option>
+                    <option value="reserva">Reserva de mesa</option>
+                    <option value="torneos">Torneos</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="form-contact-group">
+                <label for="asunto">Asunto</label>
+                <textarea id="asunto" name="asunto" rows="4" required></textarea>
+            </div>
+            
+            <button type="submit">Enviar</button>
+        </form>
+    </main>
+
+    <section class="map-section">
+        <h2>¿Prefieres contactarnos en persona? ¡Encuéntranos aquí!</h2>
+        <div class="mapa">
+            <iframe 
+                width="100%" 
+                height="400" 
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-8.411136567592623%2C43.073386489546365%2C-8.406657278537752%2C43.07516550712411&amp;layer=mapnik&amp;marker=43.07427600479078%2C-8.408896923065186" 
+                style="border:0; border-radius:8px;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+            <p class="map-link">
+                <a href="https://www.openstreetmap.org/?mlat=43.074276&amp;mlon=-8.408897#map=19/43.074276/-8.408897">Ver el mapa más grande</a>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Club de Billar Ordes - Todos los derechos reservados</p>
+    </footer>
+
+</body>
+</html>
