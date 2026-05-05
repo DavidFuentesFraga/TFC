@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #2c2a2a;
+    color: #fff;
+}
+
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    background: #232121;
+}
+
+nav h1 {
+    color: #00ff88;
+}
+
+nav a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+
+
+
+
+/* FOOTER */
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #2c2a2a;
+}
