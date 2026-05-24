@@ -10,48 +10,26 @@ function getAuthHeaders() {
 
 function actualizarMenu() {
     const token = localStorage.getItem('auth_token');
-    const menu = document.getElementById('menu-links');
-    if (!menu) return;
+    const linkLogin = document.getElementById('link-login');
+    const linkRegister = document.getElementById('link-register');
+    const userMenu = document.getElementById('user-menu');
+    const userNameSpan = document.getElementById('user-name');
+    const cartLink = document.getElementById('cart-link');
 
-    const oldUser = document.getElementById('user-info');
-    if (oldUser) oldUser.remove();
-    const oldCartLink = document.getElementById('cart-link');
-    if (oldCartLink) oldCartLink.remove();
+    if (!linkLogin || !linkRegister || !userMenu || !cartLink) return;
 
     if (token) {
+        linkLogin.style.display = 'none';
+        linkRegister.style.display = 'none';
+        userMenu.style.display = 'inline';
         const username = localStorage.getItem('username');
-        const userSpan = document.createElement('span');
-        userSpan.id = 'user-info';
-        userSpan.style.cssText = 'color:#00ff88; margin-left:20px;';
-        userSpan.textContent = `Hola, ${username}`;
-        menu.appendChild(userSpan);
-
-        const logoutLink = document.createElement('a');
-        logoutLink.href = '#';
-        logoutLink.textContent = 'Salir';
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            localStorage.removeItem('auth_token');
-            localStorage.removeItem('username');
-            window.location.reload();
-        });
-        menu.appendChild(logoutLink);
-
-        const cartLink = document.createElement('a');
-        cartLink.id = 'cart-link';
-        cartLink.href = 'carrito.html';   // El carrito está dentro de shop
-        cartLink.textContent = '🛒 Carrito';
-        menu.appendChild(cartLink);
+        if (userNameSpan) userNameSpan.textContent = username || 'Usuario';
+        cartLink.style.display = 'inline';
     } else {
-        const loginLink = document.createElement('a');
-        loginLink.href = '../login/index.html';
-        loginLink.textContent = 'Iniciar sesión';
-        menu.appendChild(loginLink);
-
-        const registerLink = document.createElement('a');
-        registerLink.href = '../register/index.html';
-        registerLink.textContent = 'Registrarse';
-        menu.appendChild(registerLink);
+        linkLogin.style.display = 'inline';
+        linkRegister.style.display = 'inline';
+        userMenu.style.display = 'none';
+        cartLink.style.display = 'none';
     }
 }
 
@@ -107,7 +85,7 @@ function mostrarProductos(productos) {
 async function agregarAlCarrito(productoId, cantidad) {
     if (!localStorage.getItem('auth_token')) {
         alert('Debes iniciar sesión para comprar');
-        window.location.href = '../login/index.html';
+        window.location.href = '/web/login/index.html';
         return;
     }
 
@@ -132,6 +110,29 @@ async function agregarAlCarrito(productoId, cantidad) {
 // ---------- INICIALIZACIÓN ----------
 document.addEventListener('DOMContentLoaded', () => {
     actualizarMenu();
+
+    // Dropdown del usuario
+    const userNameLink = document.getElementById('user-name-link');
+    const userDropdown = document.getElementById('user-dropdown');
+    if (userNameLink && userDropdown) {
+        userNameLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            userDropdown.style.display = userDropdown.style.display === 'none' ? 'block' : 'none';
+        });
+    }
+
+    // Cerrar sesión
+    const logoutLink = document.getElementById('logout-link');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('username');
+            window.location.reload();
+        });
+    }
+
+    // Catálogo
     if (document.getElementById('catalogo')) {
         cargarProductos();
         // Eventos del submenú

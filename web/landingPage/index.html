@@ -11,11 +11,23 @@
 
 <nav>
     <h1>Club de Billar Ordes</h1>
-    <div>
+    <div id="menu-links">
         <a href="/web/landingPage/index.html">Inicio</a>
         <a href="/web/shop/index.html">Tienda</a>
         <a href="/web/socios/index.html">Socios</a>
         <a href="/web/contact/index.html">Contacto</a>
+        <!-- Invitado -->
+        <a href="/web/login/index.html" id="link-login">Iniciar sesión</a>
+        <a href="/web/register/index.html" id="link-register">Registrarse</a>
+        <!-- Usuario (oculto por defecto) -->
+        <span id="user-menu" style="display:none; position:relative;">
+            <a href="#" id="user-name-link">Hola, <span id="user-name"></span></a>
+            <ul id="user-dropdown" style="display:none; position:absolute; background:#232121; border:1px solid #00ff88; border-radius:4px; padding:0.5rem 0; list-style:none; min-width:150px; z-index:1000;">
+                <li style="padding:0.5rem 1rem;"><a href="#" id="logout-link">Cerrar sesión</a></li>
+            </ul>
+        </span>
+        <!-- Carrito (oculto por defecto) -->
+        <a href="/web/shop/carrito.html" id="cart-link" style="display:none;">🛒 Carrito</a>
     </div>
 </nav>
 

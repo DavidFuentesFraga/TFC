@@ -34,6 +34,42 @@ nav a {
     text-decoration: none;
 }
 
+
+/* DROPDOWN */
+
+#user-menu {
+    position: relative;      
+    display: inline-block;   
+}
+
+#user-dropdown {
+    position: absolute;
+    top: 100%;               
+    left: 0;                
+    background: #232121;
+    border: 1px solid #00ff88;
+    border-radius: 4px;
+    padding: 0.5rem 0;
+    list-style: none;
+    min-width: 150px;
+    z-index: 1000;
+    margin-top: 4px;         
+}
+
+#user-dropdown li {
+    padding: 0.5rem 1rem;
+}
+
+#user-dropdown li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;          
+}
+
+#user-dropdown li a:hover {
+    color: #dd0000;
+}
+
 /*  MAIN  */
 main {
     flex: 1;
