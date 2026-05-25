@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Club de Billar Ordes</title>
+    <link rel="stylesheet" href="carrito.css">
+</head>
+<body>
+
+    <nav>
+        <h1>Club de Billar Ordes</h1>
+        <div id="menu-links">
+            <a href="/web/landingPage/index.html">Inicio</a>
+            <a href="/web/shop/index.html">Tienda</a>
+            <a href="/web/socios/index.html">Socios</a>
+            <a href="/web/contact/index.html">Contacto</a>
+            <!-- Invitado -->
+            <a href="/web/login/index.html" id="link-login">Iniciar sesión</a>
+            <a href="/web/register/index.html" id="link-register">Registrarse</a>
+            <!-- Usuario (oculto por defecto) -->
+            <span id="user-menu" style="display:none; position:relative;">
+                <a href="#" id="user-name-link">Hola, <span id="user-name"></span></a>
+                <ul id="user-dropdown" style="display:none; position:absolute; background:#232121; border:1px solid #00ff88; border-radius:4px; padding:0.5rem 0; list-style:none; min-width:150px; z-index:1000;">
+                    <li style="padding:0.5rem 1rem;"><a href="#" id="logout-link">Cerrar sesión</a></li>
+                </ul>
+            </span>
+            <!-- Carrito (oculto por defecto) -->
+            <a href="/web/shop/carrito/carrito.html" id="cart-link" style="display:none;">🛒 Carrito</a>
+        </div>
+    </nav>
+
+    <main>
+        <h2 style="text-align:center; margin: 2rem 0; color: #00ff88;">Tu Carrito</h2>
+        <div id="carrito-contenedor" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+            <!-- Se llenará dinámicamente -->
+        </div>
+        <div style="text-align:center; margin: 2rem 0;">
+            <p style="font-size: 1.2rem;">Total: <span id="total" style="color: #00ff88; font-weight: bold;">0.00</span> €</p>
+            <button id="btn-comprar" class="btn" style="margin-top: 1rem;">Finalizar compra</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Club de Billar Ordes - Todos los derechos reservados</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+</body>
+</html>

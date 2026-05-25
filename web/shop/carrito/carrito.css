@@ -15,7 +15,6 @@ body {
     margin:0;
 }
 
-
 /* NAV */
 nav {
     display: flex;
@@ -51,81 +50,30 @@ nav h1 {
     color: #00ff88;
 }
 
-/* MAIN */
+/* boton finalizar compra */
 
-main{
-    flex:1;
-}
-
-.form-container {
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 30px;
-    background: #232121;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
-.form-container h2 {
-    text-align: center;
-    color: #00ff88;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #ccc;
-}
-
-.form-group input {
-    padding: 10px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    background: #1a1a1a;
-    color: #fff;
-    font-size: 1rem;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #00ff88;
-}
-
-.btn {
-    width: 100%;
-    padding: 12px;
+#btn-comprar {
+    padding: 14px 30px;
     background: #00ff88;
-    color: #2c2a2a;
+    color: #111;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 10px;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(0,255,136,0.3);
 }
 
-.btn:hover {
+#btn-comprar:hover {
     background: #00cc66;
+    transform: scale(1.03);
 }
 
-.form-link {
-    text-align: center;
-    margin-top: 15px;
-    color: #aaa;
+main{
+    flex: 1;
 }
 
-.form-link a {
-    color: #00ff88;
-    text-decoration: none;
-}
 
 /* FOOTER */
 footer {
