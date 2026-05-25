@@ -62,7 +62,7 @@ function mostrarProductos(productos) {
 
     contenedor.innerHTML = productos.map(p => `
         <div class="producto">
-            <img src="${p.imagen || 'img/default.jpg'}" alt="${p.nombre}">
+            <img src="${p.imagen ? 'http://127.0.0.1:8000' + p.imagen : 'img/default.jpg'}" alt="${p.nombre}">
             <h3>${p.nombre}</h3>
             <p class="precio">${p.precio} €</p>
             <p class="stock ${p.stock === 0 ? 'agotado' : ''}">
@@ -135,13 +135,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Catálogo
     if (document.getElementById('catalogo')) {
         cargarProductos();
-        // Eventos del submenú
-        document.querySelectorAll('.subnav a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const categoria = e.target.dataset.categoria;
-                cargarProductos(categoria);
-            });
+
+
+ let categoriaActiva = '';
+
+// Eventos del submenú
+document.querySelectorAll('.subnav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const categoria = e.target.dataset.categoria;
+
+        if (categoria === categoriaActiva) {
+            // Si se pulsa la misma categoría, desactivar filtro
+            categoriaActiva = '';
+            cargarProductos('');
+        } else {
+            // Activar nueva categoría
+            categoriaActiva = categoria;
+            cargarProductos(categoria);
+        }
+
+        // Actualizar clase activa en los enlaces
+        document.querySelectorAll('.subnav a').forEach(el => {
+            el.classList.remove('active');
+            if (el.dataset.categoria === categoriaActiva) {
+                el.classList.add('active');
+            }
         });
-    }
+    });
 });
+}})
