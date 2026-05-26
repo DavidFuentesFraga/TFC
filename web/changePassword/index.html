@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito - Club de Billar Ordes</title>
-    <link rel="stylesheet" href="carrito.css">
+    <title>Cambiar contraseña - Club de Billar Ordes</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav>
         <h1>Club de Billar Ordes</h1>
         <div id="menu-links">
@@ -27,18 +26,25 @@
                 </ul>
             </span>
             <!-- Carrito (oculto por defecto) -->
-            <a href="/web/shop/carrito/carrito.html" id="cart-link" style="display:none;">🛒 Carrito</a>
+            <a href="/web/shop/carrito.html" id="cart-link" style="display:none;">🛒 Carrito</a>
         </div>
     </nav>
 
     <main>
-        <h2 style="text-align:center; margin: 2rem 0; color: #00ff88;">Tu Carrito</h2>
-        <div id="carrito-contenedor" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-            <!-- Se llenará dinámicamente -->
-        </div>
-        <div style="text-align:center; margin: 2rem 0;">
-            <p style="font-size: 1.2rem;">Total: <span id="total" style="color: #00ff88; font-weight: bold;">0.00</span> €</p>
-            <button id="btn-comprar" class="btn" style="margin-top: 1rem;">Finalizar compra</button>
+        <div class="form-container">
+            <h2>Cambiar contraseña</h2>
+            <form id="form-cambiar-password">
+                <div class="form-group">
+                    <label for="old-password">Contraseña actual</label>
+                    <input type="password" id="old-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nueva contraseña</label>
+                    <input type="password" id="new-password" required>
+                </div>
+                <button type="submit" class="btn">Cambiar contraseña</button>
+            </form>
+            <p id="mensaje" style="text-align:center; margin-top:1rem;"></p>
         </div>
     </main>
 
@@ -46,6 +52,6 @@
         <p>© 2026 Club de Billar Ordes - Todos los derechos reservados</p>
     </footer>
 
-    <script src="carrito.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

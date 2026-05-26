@@ -144,3 +144,27 @@ class HistorialPedidos(APIView):
         pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
         serializer = PedidoSerializer(pedidos, many=True)
         return Response(serializer.data)
+
+class CambiarPassword(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def put(self, request):
+        old_password = request.data.get('old_password')
+        new_password = request.data.get('new_password')
+
+        if not old_password and not new_password:
+            return Response(
+                {'error':'Se requieren old_password y new_password '},
+                status=400
+            )
+
+        user = request.user
+        if not user.check_password(old_password):
+            return Response(
+                {'error': 'La contraseña actual es incorrecta'},
+                status=400
+            )
+
+        user.set_password(new_password)
+        user.save()
+        return Response({'mensaje': 'Contraseña actualizada correctamente'})
