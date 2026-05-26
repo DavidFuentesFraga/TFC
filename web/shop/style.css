@@ -50,6 +50,12 @@ nav h1 {
     color: #00ff88;
 }
 
+#menu-links a.active {
+    color: #00ff88;
+    font-weight: bold;
+    border-bottom: 2px solid #00ff88;
+}
+
 /* Submenú de categorías */
 .subnav {
     display: flex;
@@ -81,6 +87,10 @@ nav h1 {
 }
 
 /* Hero */
+
+main{
+    flex:1;
+}
 .hero {
     height: 60vh;
     background: url("/web/shop/heroImagen.jpg") center/cover;
@@ -202,3 +212,89 @@ footer {
     border-top: 2px solid #00ff88;
 }
 
+/* ========== RESPONSIVE ========== */
+
+/* Tablet (hasta 992px) */
+@media (max-width: 992px) {
+    nav {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 5%;
+    }
+
+    #menu-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .hero {
+        height: 40vh;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .productos {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 2rem 5%;
+    }
+
+    .subnav {
+        gap: 1rem;
+        padding: 0.8rem 5%;
+    }
+
+    .video-wrapper {
+        padding: 0 5%;
+    }
+}
+
+/* Móvil (hasta 576px) */
+@media (max-width: 576px) {
+    nav {
+        padding: 10px 5%;
+    }
+
+    #menu-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hero {
+        height: 30vh;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .productos {
+        grid-template-columns: 1fr;
+        padding: 1rem 5%;
+    }
+
+    .subnav {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .subnav a {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    #user-dropdown {
+        position: static;
+        width: 100%;
+        margin-top: 5px;
+    }
+}

@@ -125,3 +125,57 @@ footer {
     color: #888;
     border-top: 2px solid #00ff88;
 }
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablet (hasta 992px) */
+@media (max-width: 992px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 15px 5%;
+    }
+
+    #menu-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .form-container {
+        margin: 40px auto;
+        padding: 25px;
+    }
+}
+
+/* Móvil (hasta 576px) */
+@media (max-width: 576px) {
+    nav {
+        padding: 10px 5%;
+    }
+
+    #menu-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .form-container {
+        margin: 20px auto;
+        padding: 20px 15px;
+        max-width: 90%;
+    }
+
+    .form-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .form-group input {
+        padding: 8px;
+    }
+
+    .btn {
+        padding: 10px;
+    }
+}
