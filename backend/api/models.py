@@ -26,6 +26,14 @@ class ItemCarrito(models.Model):
 class Pedido(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pedidos')
     fecha = models.DateTimeField(auto_now_add=True)
+    productos = models.ManyToManyField(
+        Producto,
+        through='DetallePedido',
+        related_name='pedidos'
+    )
+
+    def __str__(self):
+        return f"Pedido {self.id} - {self.fecha}"
 
 class DetallePedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='detalles')
