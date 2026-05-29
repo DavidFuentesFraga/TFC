@@ -9,8 +9,37 @@ from .models import Producto, Carrito, ItemCarrito, Pedido, DetallePedido
 from .serializers import (
     ProductoSerializer, CarritoSerializer, ItemCarritoSerializer, PedidoSerializer
 )
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 # --- Autenticación ---
+@extend_schema(
+    tags=['Autenticación'],
+    summary='Registrar usuario',
+    description='Crea un nuevo usuario y devuelve un token de autenticación.',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'username': {'type': 'string'},
+                'password': {'type': 'string'},
+                'email': {'type': 'string'},
+            },
+            'required': ['username', 'password'],
+        }
+    },
+    responses={
+        201: {
+            'type': 'object',
+            'properties': {
+                'token': {'type': 'string'},
+                'user_id': {'type': 'integer'},
+                'username': {'type': 'string'},
+            },
+        },
+    },
+)
+
 class RegistroView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -26,6 +55,31 @@ class RegistroView(APIView):
         token = Token.objects.create(user=user)
         return Response({'token': token.key, 'user_id': user.id, 'username': user.username}, status=201)
 
+@extend_schema(
+    tags=['Autenticación'],
+    summary='Iniciar sesión',
+    description='Valida credenciales y devuelve token de autenticación.',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'username': {'type': 'string'},
+                'password': {'type': 'string'},
+            },
+            'required': ['username', 'password'],
+        }
+    },
+    responses={
+        200: {
+            'type': 'object',
+            'properties': {
+                'token': {'type': 'string'},
+                'user_id': {'type': 'integer'},
+                'username': {'type': 'string'},
+            },
+        },
+    },
+)
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data, context={'request': request})
@@ -35,6 +89,21 @@ class LoginView(ObtainAuthToken):
         return Response({'token': token.key, 'user_id': user.id, 'username': user.username})
 
 # --- Productos ---
+@extend_schema(
+    tags=['Productos'],
+    summary='Listar productos',
+    description='Devuelve todos los productos con stock disponible. Se puede filtrar por categoría.',
+    parameters=[
+        OpenApiParameter(
+            name='categoria',
+            type=OpenApiTypes.STR,
+            location=OpenApiParameter.QUERY,
+            description='Filtra por categoría (tacos, bolas, mesas, accesorios, ropa).',
+            required=False,
+        ),
+    ],
+    responses={200: ProductoSerializer(many=True)},
+)
 class ProductoList(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -46,6 +115,12 @@ class ProductoList(APIView):
         serializer = ProductoSerializer(productos, many=True)
         return Response(serializer.data)
 
+@extend_schema(
+    tags=['Productos'],
+    summary='Detalle de producto',
+    description='Devuelve los datos de un producto específico.',
+    responses={200: ProductoSerializer},
+)
 class ProductoDetail(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -55,6 +130,22 @@ class ProductoDetail(APIView):
         return Response(serializer.data)
 
 # --- Carrito ---
+@extend_schema(
+    tags=['Carrito'],
+    summary='Añadir producto al carrito',
+    description='Añade una cantidad de un producto al carrito del usuario autenticado.',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'producto_id': {'type': 'integer', 'description': 'ID del producto'},
+                'cantidad': {'type': 'integer', 'description': 'Cantidad a añadir (por defecto 1)'},
+            },
+            'required': ['producto_id'],
+        }
+    },
+    responses={201: ItemCarritoSerializer},
+)
 class AgregarAlCarrito(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -77,6 +168,12 @@ class AgregarAlCarrito(APIView):
         serializer = ItemCarritoSerializer(item)
         return Response(serializer.data, status=201)
 
+@extend_schema(
+    tags=['Carrito'],
+    summary='Ver carrito',
+    description='Devuelve el contenido actual del carrito del usuario autenticado.',
+    responses={200: CarritoSerializer},
+)
 class VerCarrito(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -85,6 +182,15 @@ class VerCarrito(APIView):
         serializer = CarritoSerializer(carrito)
         return Response(serializer.data)
 
+@extend_schema(
+    tags=['Carrito'],
+    summary='Modificar o eliminar ítem del carrito',
+    description='PATCH para modificar la cantidad, DELETE para eliminar el ítem.',
+    responses={
+        200: ItemCarritoSerializer,
+        204: None,
+    },
+)
 class ItemCarritoUpdateDelete(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -109,6 +215,12 @@ class ItemCarritoUpdateDelete(APIView):
         return Response(status=204)
 
 # --- Pedidos ---
+@extend_schema(
+    tags=['Pedidos'],
+    summary='Finalizar compra',
+    description='Crea un pedido con los productos del carrito, descuenta el stock y vacía el carrito.',
+    responses={201: PedidoSerializer},
+)
 class FinalizarCompra(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -137,6 +249,12 @@ class FinalizarCompra(APIView):
         serializer = PedidoSerializer(pedido)
         return Response(serializer.data, status=201)
 
+@extend_schema(
+    tags=['Pedidos'],
+    summary='Historial de pedidos',
+    description='Devuelve los pedidos realizados por el usuario autenticado.',
+    responses={200: PedidoSerializer(many=True)},
+)
 class HistorialPedidos(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -144,6 +262,22 @@ class HistorialPedidos(APIView):
         pedidos = Pedido.objects.filter(usuario=request.user).order_by('-fecha')
         serializer = PedidoSerializer(pedidos, many=True)
         return Response(serializer.data)
+
+@extend_schema(
+    tags=['Autenticación'],
+    summary='Cambiar contraseña',
+    description='Permite al usuario autenticado cambiar su contraseña.',
+    request={
+        'application/json': {
+            'type': 'object',
+            'properties': {
+                'old_password': {'type': 'string'},
+                'new_password': {'type': 'string'},
+            },
+            'required': ['old_password', 'new_password'],
+        }
+    },
+)
 
 class CambiarPassword(APIView):
     permission_classes = [permissions.IsAuthenticated]

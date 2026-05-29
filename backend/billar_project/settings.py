@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'drf_spectacular',
     'api',
 ]
 
@@ -132,5 +133,17 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Club de Billar Ordes',
+    'DESCRIPTION': 'API REST para la tienda online del Club de Billar Ordes.\n\n'
+                   'Permite gestionar productos, usuarios, carritos y pedidos.\n'
+                   'La mayoría de operaciones requieren autenticación mediante Token.\n'
+                   'Para autenticarse, se debe obtener un token en /api/login/ o /api/register/.\n'
+                   'Las peticiones protegidas deben incluir la cabecera Authorization: Token <valor>.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
